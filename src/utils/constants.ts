@@ -1,0 +1,1 @@
+export const MONGO_DB_DATABASE = 'would-you-rather'
