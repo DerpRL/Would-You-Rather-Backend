@@ -1,4 +1,3 @@
-// Imports
 import { Db } from "mongodb";
 import { MONGO_DB_CLIENT } from "../utils/builders";
 

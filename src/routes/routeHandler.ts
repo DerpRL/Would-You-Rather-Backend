@@ -1,4 +1,3 @@
-// Imports
 import { NextFunction, Request, Response, Router } from "express";
 import questionsRouter from "./questionHandler";
 

@@ -1,4 +1,3 @@
-// Imports
 import { NextFunction, Request, Response } from "express";
 import { voteQuestionBodyValidationSchema } from "../validation/bodyValidationSchemas";
 
@@ -18,7 +17,7 @@ export async function validateVoteQuestionBody(req: Request, res: Response, next
         await voteQuestionBodyValidationSchema.validateAsync(req.body)
         return next();
     } catch (error) {
-        console.error('Error in the validaztion body for questions', error);
+        console.error('Error in the validation body for questions', error);
         return res.status(400).json({ msg: `There are errors in the body.` })
     };
 }

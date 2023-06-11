@@ -1,7 +1,4 @@
-// dotenv
 import 'dotenv/config'
-
-// Imports
 import { MongoClient } from "mongodb";
 
 

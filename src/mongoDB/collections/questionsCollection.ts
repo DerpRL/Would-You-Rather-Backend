@@ -1,4 +1,3 @@
-// Imports
 import { Collection, Db } from "mongodb";
 import { MONGO_DB_DATABASE } from "../../utils/constants";
 import { getMongoDatabase } from "../connectionCreator";
@@ -13,12 +12,11 @@ export function getMongoQuestionsCollection(): Collection<Question> {
 
 export async function populateMongoQuestionsCollection(): Promise<void> {
     const questionsCollection: Collection<Question> = getMongoQuestionsCollection();
-
+    
     await questionsCollection.deleteMany({});
 
     for (let i = 0; i < questionsMetadata.length; i++) {
         await questionsCollection.insertOne({
-            questionId: i + 1,
             active: true,
             nsfw: false,
             firstOption: questionsMetadata[i].firstOption,

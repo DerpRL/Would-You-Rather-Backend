@@ -1,4 +1,3 @@
-// Imports
 import { connectMongoDB, disconnectMongoDB } from "../mongoDB/connectionCreator";
 import express, { Express } from 'express';
 import cors from 'cors';
