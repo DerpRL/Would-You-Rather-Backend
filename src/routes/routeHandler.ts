@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response, Router } from "express";
 import questionsRouter from "./questionHandler";
+import authRouter from './authHandler';
 
 
 const router = Router();
@@ -10,5 +11,6 @@ router.use((req: Request, res: Response, next: NextFunction) => {
 })
 
 router.use('/questions', questionsRouter)
+router.use('/auth', authRouter)
 
 export default router
