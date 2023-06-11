@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { voteQuestionBodyValidationSchema } from "../validation/bodyValidationSchemas";
+import { addQuestionBodyValidationSchema, voteQuestionBodyValidationSchema, reviewQuestionBodyValidationSchema } from "../validation/bodyValidationSchemas";
 
 
 export function checkApiParams(req: Request, res: Response, next: NextFunction) {
@@ -21,3 +21,28 @@ export async function validateVoteQuestionBody(req: Request, res: Response, next
         return res.status(400).json({ msg: `There are errors in the body.` })
     };
 }
+
+export async function validateAddQuestionBody(req: Request, res: Response, next: NextFunction) {
+    try {
+        if (!req || !req.body) return res.status(400).json({ msg: 'Invalid request body.' })
+
+        await addQuestionBodyValidationSchema.validateAsync(req.body)
+        return next();
+    } catch (error) {
+        console.error('Error in the validation body for questions', error);
+        return res.status(400).json({ msg: `There are errors in the body.` })
+    };
+}
+
+export async function validateReviewQuestionBody(req: Request, res: Response, next: NextFunction) {
+    try {
+        if (!req || !req.body) return res.status(400).json({ msg: 'Invalid request body.' })
+
+        await reviewQuestionBodyValidationSchema.validateAsync(req.body)
+        return next();
+    } catch (error) {
+        console.error('Error in the validation body for questions', error);
+        return res.status(400).json({ msg: `There are errors in the body.` })
+    };
+}
+

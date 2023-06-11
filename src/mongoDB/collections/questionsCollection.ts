@@ -11,22 +11,26 @@ export function getMongoQuestionsCollection(): Collection<Question> {
 }
 
 export async function populateMongoQuestionsCollection(): Promise<void> {
-    const questionsCollection: Collection<Question> = getMongoQuestionsCollection();
-    
-    await questionsCollection.deleteMany({});
+    try {
+        const questionsCollection: Collection<Question> = getMongoQuestionsCollection();
+        await questionsCollection.deleteMany({});
 
-    for (let i = 0; i < questionsMetadata.length; i++) {
-        await questionsCollection.insertOne({
-            active: true,
-            nsfw: false,
-            firstOption: questionsMetadata[i].firstOption,
-            secondOption: questionsMetadata[i].secondOption,
-            voteStats: {
-                optionOneVotes: 0,
-                optionTwoVotes: 0
+        const questions: Question[] = questionsMetadata.map((question: Question) => {
+            return { 
+                active: true,
+                nsfw: false,
+                firstOption: question.firstOption,
+                secondOption: question.secondOption,
+                voteStats: {
+                    optionOneVotes: 0,
+                    optionTwoVotes: 0
+                }
             }
         })
-
-        console.log('Added new entry to question collection');
-    }
+    
+        await questionsCollection.insertMany(questions);
+        console.log(`Added ${questions.length} questions`);
+    } catch (error) {
+        console.error(error);
+    }   
 }
